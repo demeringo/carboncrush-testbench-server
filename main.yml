@@ -1,0 +1,41 @@
+---
+- name: Network Getting Started First Playbook
+  gather_facts: true
+  hosts: all
+  become: true
+  tasks:
+    - name: System details
+      debug:
+        msg: "{{ ansible_facts['lsb']['release'] }}"
+    
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+        update_cache: true
+    
+    - name: test rapl support
+      shell: modprobe intel_rapl_common
+      register: response
+    - debug: msg="{{ response.stdout }}"
+    
+    - name: Install docker, curl
+      apt:
+        name: 
+          - docker.io
+          - curl
+        state: latest
+
+    - name: Ensure docker deamon is running
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+# - name: Configure the runner
+#   hosts: all
+#   become: true
+#   vars_files:
+#     - vars/main.yml
+#   roles:
+#     - { role: riemers.gitlab-runner }

@@ -1,0 +1,10 @@
+---
+runners:
+  hosts:
+    carboncrush: 
+      # Use your host ip address below
+      ansible_host: xxx.xxx.xxx.xxx
+  vars:
+    # Connect as this SSH user
+    ansible_user: name_of_your_user_with_sudo_priv
+
