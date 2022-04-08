@@ -1,4 +1,4 @@
-# carboncrush-testbench-server
+# CarbonCrush tes becnh server setup
 
 🛠 Configure a server to act as the Carbon Crush test bench, to allow measure in CI.
 
