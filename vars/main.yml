@@ -1,23 +1,29 @@
 gitlab_runner_coordinator_url: https://gitlab.com
-gitlab_runner_registration_token: '12341234'
+gitlab_runner_registration_token: '123-EDIT-THIS'
 gitlab_runner_runners:
-  - name: 'Example Docker GitLab Runner'
+  - name: 'CarbonCrush runner'
+    state: present
     # token is an optional override to the global gitlab_runner_registration_token
-    token: 'abcd'
+    # token: 'abcd'
     # url is an optional override to the global gitlab_runner_coordinator_url
-    url: 'https://my-own-gitlab.mydomain.com'
+    #url: 'https://my-own-gitlab.mydomain.com'
     executor: docker
     docker_image: 'alpine'
+    run_untagged: false
+    docker_privileged: false
     tags:
-      - node
-      - ruby
-      - mysql
-    docker_volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "/cache"
+      - carboncrush-testbench
+      # - ruby
+      # - mysql
     extra_configs:
       runners.docker:
         memory: 512m
-        allowed_images: ["ruby:*", "python:*", "php:*"]
-      runners.docker.sysctls:
-        net.ipv4.ip_forward: "1"
+        volumes:
+          # - "/var/run/docker.sock:/var/run/docker.sock"
+          - "/sys/class/powercap:/sys/class/powercap"
+          - "/proc:/proc"
+          - "/cache"
+
+      #   allowed_images: ["ruby:*", "python:*", "php:*"]
+      # runners.docker.sysctls:
+      #   net.ipv4.ip_forward: "1"

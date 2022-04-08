@@ -2,14 +2,14 @@
 
 🛠 Configure a server to act as the Carbon Crush test bench, to allow the measure of energy consumption in Gitlab-CI.
 
-See also [Eco-design software by measuring energy usage in Continous Integration](https://demeringo.gitlab.io/blog/sustainable_it/2022/03/08/CarbonCrush-tracking-energy-usage-of-software-branches.html) for more background.
+See also [Eco-design software by measuring energy usage in Continuous Integration](https://demeringo.gitlab.io/blog/sustainable_it/2022/03/08/CarbonCrush-tracking-energy-usage-of-software-branches.html) for more background.
 
 ## Content
 
 This works with a server using Ubuntu LTS (and likely a Debian).
 
-- Ansible script to depoy gitlab-ci runner a to execute [Scaphandre](https://github.com/hubblo-org/scaphandre) in CI.
-- TODO: Terraform scripts to build the hosting server.
+- Ansible script to deploy gitlab-ci runner a to execute [Scaphandre](https://github.com/hubblo-org/scaphandre) in CI.
+- TODO: Terraform scripts to provision the hosting server.
 
 ## Usage
 
@@ -33,7 +33,8 @@ Update the settings of the runner(s) in /vars/main.yml
 
 ```sh
 # Execute the full playbook
-ansible-playbook --private-key ../id_scaph_rsa main.yml -i hosts.yml
+# Use your SSH Key and valid gitlab registration token
+ansible-playbook --private-key ../id_scaph_rsa main.yml -i hosts.yml -xtra-vars="gitlab_runner_registration_token=123456789ABCD" 
 ```
 
 ## Thanks

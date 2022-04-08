@@ -1,8 +1,10 @@
 ---
-- name: Network Getting Started First Playbook
+- name: Configure server to shost scaphandre runners
   gather_facts: true
   hosts: all
   become: true
+  vars_files:
+    - vars/main.yml
   tasks:
     - name: System details
       debug:
@@ -21,21 +23,15 @@
     
     - name: Install docker, curl
       apt:
-        name: 
-          - docker.io
-          - curl
+        name: "docker.io"
         state: latest
 
-    - name: Ensure docker deamon is running
+    - name: Ensure docker daemon is running
       service:
-        name: docker
+        name: "docker"
         state: started
         enabled: true
 
-# - name: Configure the runner
-#   hosts: all
-#   become: true
-#   vars_files:
-#     - vars/main.yml
-#   roles:
-#     - { role: riemers.gitlab-runner }
+    - name: COnfigure and register the Gitlab runner
+      include_role:
+        name: riemers.gitlab-runner
