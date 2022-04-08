@@ -1,5 +1,5 @@
 ---
-- name: Configure server to shost scaphandre runners
+- name: Configure a server to host Scaphandre runners
   gather_facts: true
   hosts: all
   become: true
@@ -32,6 +32,6 @@
         state: started
         enabled: true
 
-    - name: COnfigure and register the Gitlab runner
+    - name: Install and register Gitlab runner(s)
       include_role:
         name: riemers.gitlab-runner
